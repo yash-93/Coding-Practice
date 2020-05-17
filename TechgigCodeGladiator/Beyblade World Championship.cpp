@@ -29,7 +29,7 @@ void test(){
     {
         auto itr = upper_bound(team_G.begin(), team_G.end(), *it);
 
-        if(distance(team_G.begin(), itr) == distance(team_G.begin(), --team_G.end()))
+        if(next(itr) == team_G.end())
         {
             team_G.erase(itr);
             winning_fights++;
