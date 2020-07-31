@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool wordBreak(string s, vector<string>& wordDict) {
+/*bool wordBreak(string s, vector<string>& wordDict) {
     bool res = false;
     int n = s.size();
     vector<vector<bool> > dp(s.size(), vector<bool> (s.size(),false));
@@ -28,6 +28,30 @@ bool wordBreak(string s, vector<string>& wordDict) {
         }
     }
     return res = dp[0][s.size()-1] ? true : false;
+}*/
+
+bool wordBreak(string s, vector<string>& words) {
+    if (words.size() == 0) return false;
+
+    unordered_set<string> d(words.begin(), words.end());
+
+    vector<bool> dp(s.size() + 1, false);
+    dp[0] = true;
+
+    for (int i = 1; i <= s.size(); ++i) {
+        for (int j = i - 1; j >= 0; --j) {
+
+            if (dp[j]) {
+                const string sub = s.substr(j, i - j);
+                if (d.count(sub)) {
+
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+    }
+    return dp[s.size()];
 }
 
 int main(){
